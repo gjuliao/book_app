@@ -60,33 +60,3 @@ function displayStorage(library){
 
 window.addEventListener("load", displayStorage(library));
 
-
-
-/*
-function saveData(){
-    let bookTitle = titleId.value;
-    let authorName = authorId.value;
-
-    const bookRef = {
-        "bookAuthor" : authorName,
-        "bookTitle" : bookTitle
-    }
-
-
-    window.localStorage.setItem("bookRef", JSON.stringify(bookRef));
-}
-
-*/
-
-/*
-
-window.addEventListener("load", () => {
-
-    
-    let libraryObj = window.localStorage.getItem("library");
-
-    libraryObj = JSON.parse(libraryObj);
-    
-})
-
-*/
