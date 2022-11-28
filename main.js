@@ -1,22 +1,33 @@
-const title = document.getElementById("title");
-const author = document.getElementById("author");
+const titleId = document.getElementById("title");
+const authorId = document.getElementById("author");
 const bookContainer = document.getElementById("book_container");
 const addButton = document.getElementById("form_btn");
+const formBook = document.getElementById("book_form");
 
 
-let bookList =[];
 
+class Book {
+    
+    constructor(title, author){
+        this.title = title;
+        this.author = author;
+    }
+    
+}
+/*
 function Book (title, author) {
     this.title = title;
     this.author = author;
 }
+*/
 
-function addBook(Book){
-    addButton.addEventListener("click", (e) => {
-        const inputTitle = titleId.value; 
-        const inputTitle = titleId.ariaValueMax;
 
-        bookList.push(new Book);
-    })
-    
+function addBook(){
+
+        let title = titleId.value;
+        let author = authorId.value;
+
+        let newBook = new Book(title, author);
+
+        Library.addBooks(newBook);
 }
