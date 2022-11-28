@@ -12,10 +12,10 @@ formBook.addEventListener("submit", (e) => {
     let id = Math.floor(Math.random() * 10000); 
     const newBook = new Book(id, title.value, author.value);
     library = [...library, newBook];
+    displayBook();
+    addStorage(newBook);
     title.value = "";
     author.value = "";
-    displayBook();
-    addStorage(library);
 
 })
 
@@ -48,15 +48,24 @@ function removeElement(element){
 /* Local Storage */
 
 function addStorage(library){
-    let storage = localStorage.setItem("newBook", JSON.stringify(library));
+
+    const bookData = {
+        "bookTitle" : titleId.value,
+        "bookAuthor" : authorId.value
+    }
+
+    console.log(bookData);
+    
+   let storage = localStorage.setItem("bookData", JSON.stringify(library));
+   console.log(storage);
+}
+
+function displayStorage(){
+    let storage = localStorage.getItem("newBook") === null ? [] : JSON.parse(localStorage.getItem("newBook"));
     return storage;
 }
 
-function displayStorage(library){
-    let storageObj = window.localStorage.getItem(library)
-    storageObj = JSON.parse(storageObj);
-    return storageObj;
-}
 
-window.addEventListener("load", displayStorage(library));
-
+window.addEventListener("DOMContentLoaded", () => {
+    displayBook();
+})
