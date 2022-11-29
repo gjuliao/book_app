@@ -4,7 +4,7 @@ const bookContainer = document.getElementById("book_container");
 const addButton = document.getElementById("form_btn");
 const formBook = document.getElementById("book_form");
 
-let library = [];
+let library = JSON.parse(window.localStorage.getItem("newBook")); 
 
 formBook.addEventListener("submit", (e) => {
 
@@ -13,7 +13,7 @@ formBook.addEventListener("submit", (e) => {
     const newBook = new Book(id, title.value, author.value);
     library = [...library, newBook];
     displayBook();
-    addStorage(newBook);
+    addStorage(library);
     title.value = "";
     author.value = "";
 
@@ -39,9 +39,13 @@ function displayBook () {
 }
 
 function removeElement(element){
+    console.log(element);
     element.parentElement.remove();
+    library.localStorage.removeItem(this);
     library = library.filter((i) => i.id != element.id);
-    window.localStorage.removeItem(keys[id]);
+    console.log(library);
+    displayStorage();
+    
 }
 
 /* Local Storage */
@@ -53,13 +57,8 @@ function addStorage(library){
         "bookAuthor" : authorId.value
     }
     
-   let storage = localStorage.setItem(bookData, JSON.stringify(library));
+   let storage = localStorage.setItem("newBook", JSON.stringify(library));
    console.log(storage);
-}
-
-function displayStorage(){
-    let storage = localStorage.getItem("newBook") === null ? [] : JSON.parse(localStorage.getItem("newBook"));
-    return storage;
 }
 
 
