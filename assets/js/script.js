@@ -1,3 +1,6 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
+
 const titleId = document.getElementById('title');
 const authorId = document.getElementById('author');
 const bookContainer = document.getElementById('book_container');
@@ -5,6 +8,16 @@ const addButton = document.getElementById('form_btn');
 const formBook = document.getElementById('book_form');
 
 let library = [];
+
+function displayBook(library) {
+  const data = library.map((book) => `
+        <div>
+            <p>${book.title}</p> 
+            <p>${book.author}</p>
+            <button id="${book.id}" onclick="removeElement(this)" class="delete">Remove</button>
+        </div><hr>`);
+  bookContainer.innerHTML = data.join(' ');
+}
 
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -23,16 +36,6 @@ function Book(id, title, author) {
   this.author = author;
 }
 
-function displayBook(library) {
-  const data = library.map((book) => `
-        <div>
-            <p>${book.title}</p>
-            <p>${book.author}</p>
-            <button id="${book.id}" onclick="removeElement(this)" class="delete">Remove</button>
-        </div><hr>`);
-  bookContainer.innerHTML = data.join(' ');
-}
-
 /* Add Storage */
 
 function addStorage(library) {
@@ -41,7 +44,7 @@ function addStorage(library) {
 
 /* Remove Storage */
 function removeElement(element) {
-  library = library.filter((i) => i.id != element.id);
+  library = library.filter((i) => i.id !== element.id);
   addStorage(library);
   displayBook(library);
 }
