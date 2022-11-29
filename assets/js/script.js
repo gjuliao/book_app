@@ -43,8 +43,9 @@ function addStorage(library) {
 }
 
 /* Remove Storage */
+/* eslint-disable eqeqeq */
 function removeElement(element) {
-  library = library.filter((i) => i.id !== element.id);
+  library = library.filter((i) => i.id != element.id);
   addStorage(library);
   displayBook(library);
 }
