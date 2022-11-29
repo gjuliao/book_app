@@ -4,7 +4,7 @@ const bookContainer = document.getElementById("book_container");
 const addButton = document.getElementById("form_btn");
 const formBook = document.getElementById("book_form");
 
-let library = JSON.parse(window.localStorage.getItem("newBook")); 
+let library = {};
 
 formBook.addEventListener("submit", (e) => {
 
@@ -12,11 +12,10 @@ formBook.addEventListener("submit", (e) => {
     let id = Math.floor(Math.random() * 10000); 
     const newBook = new Book(id, title.value, author.value);
     library = [...library, newBook];
-    displayBook();
     addStorage(library);
+    displayBook(library);
     title.value = "";
     author.value = "";
-
 })
 
 function Book (id, title, author) {
@@ -25,7 +24,7 @@ function Book (id, title, author) {
         this.author = author;
 }
 
-function displayBook () {
+function displayBook (library) {
   
     let data = library.map(book => {
         return `
@@ -38,30 +37,28 @@ function displayBook () {
     bookContainer.innerHTML = data.join(" ");
 }
 
-function removeElement(element){
-    console.log(element);
-    element.parentElement.remove();
-    library.localStorage.removeItem(this);
-    library = library.filter((i) => i.id != element.id);
-    console.log(library);
-    displayStorage();
-    
-}
 
-/* Local Storage */
+/* Add Storage */
 
 function addStorage(library){
+   localStorage.setItem("newBook", JSON.stringify(library));
+}
 
-    const bookData = {
-        "bookTitle" : titleId.value,
-        "bookAuthor" : authorId.value
-    }
-    
-   let storage = localStorage.setItem("newBook", JSON.stringify(library));
-   console.log(storage);
+/* Remove Storage */
+function removeElement(element){
+    let books = JSON.parse(localStorage.getItem("newBook"));
+    console.log(books);
+    element.parentElement.remove();
+    library = library.filter((i) => i.id != element.id);
+    localStorage.removeItem("newBook");
+  
 }
 
 
 window.addEventListener("DOMContentLoaded", () => {
-    displayBook();
+    if (localStorage.getItem("newBook")){
+        displayBook(JSON.parse(localStorage.newBook));
+    } else {
+        console.log(" no library");
+    }
 })
