@@ -19,12 +19,10 @@ formBook.addEventListener("submit", (e) => {
 
 })
 
-class Book {
-    constructor(id, title, author){
+function Book (id, title, author) {
         this.id = id;
         this.title = title;
         this.author = author;
-    }
 }
 
 function displayBook () {
@@ -43,6 +41,7 @@ function displayBook () {
 function removeElement(element){
     element.parentElement.remove();
     library = library.filter((i) => i.id != element.id);
+    window.localStorage.removeItem(keys[id]);
 }
 
 /* Local Storage */
@@ -53,10 +52,8 @@ function addStorage(library){
         "bookTitle" : titleId.value,
         "bookAuthor" : authorId.value
     }
-
-    console.log(bookData);
     
-   let storage = localStorage.setItem("bookData", JSON.stringify(library));
+   let storage = localStorage.setItem(bookData, JSON.stringify(library));
    console.log(storage);
 }
 
