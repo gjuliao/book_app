@@ -1,12 +1,12 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
+/* eslint-disable max-classes-per-file */
 
 const titleId = document.getElementById('title');
 const authorId = document.getElementById('author');
 const bookContainer = document.getElementById('book_container');
 const addButton = document.getElementById('form_btn');
 const formBook = document.getElementById('book_form');
-
 
 class Book {
   constructor(id, title, author) {
@@ -16,13 +16,11 @@ class Book {
   }
 }
 
-
 class Collection {
   constructor() {
     this.library = [];
   }
 
-  
   addBook() {
     const id = Math.floor(Math.random() * 10000);
     const newBook = new Book(id, titleId.value, authorId.value);
@@ -30,46 +28,41 @@ class Collection {
     this.addStorage(this.library);
     displayBook(this.library);
   }
-  
+
+  /* eslint-disable class-methods-use-this */
   /* Add Storage */
   addStorage(library) {
     localStorage.setItem('newBook', JSON.stringify(library));
   }
-  
+
   /* Remove Storage */
   /* eslint-disable eqeqeq */
   removeElement(element) {
-  this.library = this.library.filter((i) => i.id != element.id);
-  this.addStorage(this.library);
-  displayBook(this.library);
-}
+    this.library = this.library.filter((i) => i.id != element.id);
+    this.addStorage(this.library);
+    displayBook(this.library);
+  }
 }
 
 const col = new Collection();
 
-
 function displayBook(library) {
   const data = library.map((book) => `
-        <div>
-            <p>${book.title}</p> 
-            <p>${book.author}</p>
-            <button id="${book.id}" onclick="col.removeElement(this)" class="delete">Remove</button>
-        </div><hr>`);
+        <tr class="d-flex w-100 justify-content-between">
+            <td class="align-items-center w-100 d-flex justify-content-between"> <span><span class="fw-bold">${book.title}</span> by <span class="fst-italic">${book.author}</span></span> <button id="${book.id}" onclick="col.removeElement(this)" class="btn btn-danger">Remove</button></td> 
+        </tr>`);
   bookContainer.innerHTML = data.join('');
 }
 
-
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
-  col.addBook()
-  console.log('HelLo')
+  col.addBook();
   this.title.value = '';
   this.author.value = '';
 });
 
-
-  window.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('newBook')) {
-      displayBook(JSON.parse(localStorage.newBook));
-    }
-  });
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('newBook')) {
+    displayBook(JSON.parse(localStorage.newBook));
+  }
+});
