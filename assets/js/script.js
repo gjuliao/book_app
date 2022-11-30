@@ -67,19 +67,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Book App
-// const today = new Date();
-// const yyyy = today.getFullYear();
-// let mm = today.getMonth() + 1; // Months start at 0!
-// let dd = today.getDate();
-
-// if (dd < 10) dd = '0' + dd;
-// if (mm < 10) mm = '0' + mm;
-
-// const formattedToday = dd + '/' + mm + '/' + yyyy;
-
-// document.getElementById('DATE').value = formattedToday;
-
 document.getElementById('time').innerHTML = new Date();
 
 function displayPage(section) {
@@ -94,17 +81,13 @@ function displayPage(section) {
     contact.style.display = 'none';
 
     mainH1.innerHTML = 'Awesome Book App';
-  } 
-
-  else if (section == 'form') {
+  } else if (section == 'form') {
     bookForm.style.display = 'block';
     bookList.style.display = 'none';
     contact.style.display = 'none';
 
     mainH1.innerHTML = 'Add New Book';
-  }
-
-  else if (section == 'contact') {
+  } else if (section == 'contact') {
     contact.style.display = 'block';
     bookList.style.display = 'none';
     bookForm.style.display = 'none';
